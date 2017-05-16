@@ -1,0 +1,126 @@
+<div class="w3-row" *ngIf="dataAvailable">
+
+<!-- Blog entries -->
+<div class="w3-col l8 s12" *ngIf="postAvailable; else welcomeUser">
+  <!-- Blog entry -->
+  <div  class="w3-card-4 w3-margin w3-white" *ngFor="let post of posts">
+    <img src="{{post.postImg?post.postImg:'src/app/img/screenshot.PNG'}}" alt="Nature" style="width:100%">
+    <div class="w3-container">
+      <h3><b>{{post.postDetails.postHeading}}</b></h3>
+      <h5><span class="w3-opacity">{{post.postDetails.dateTime}}</span></h5>
+    </div>
+
+    <div class="w3-container">
+      <p class="wsPreLine">{{post.postDetails.description}}</p>
+      <div class="w3-row">
+        <div class="w3-col m8 s5 likeDislike">
+          <p class="w3-col m4 s6"><i class="fa fa-thumbs-o-up"  [class.likedDisliked]="post.postDetails.like[userId]" (click)="likedThepost(post.postDetails.postId,$event)" aria-hidden="true"></i><span>{{getLikesCount(post.postDetails.like)}}</span></p>
+		  <p class="w3-col m4 s6"><i class="fa fa-thumbs-o-down" [class.likedDisliked]="post.postDetails.disLike[userId]" (click)="dislikedThepost(post.postDetails.postId,$event)"aria-hidden="true"></i><span>{{getLikesCount(post.postDetails.disLike)}}</span></p>
+        </div>
+        <div class="w3-col m4 s7">
+          <p (click)="gotoPost(userId,post.postDetails.postId)"><span class="w3-padding-large w3-right"><a href="javascripts:;"><b>Comments &nbsp;</b> <span class="w3-tag">{{getLikesCount(post.postDetails.comments)}}</span></a></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <!-- Blog entry -->
+  
+<!-- END BLOG ENTRIES -->
+</div>
+<template #welcomeUser>
+<div class="w3-col l8 s12" >
+<div  class="w3-card-4 w3-margin w3-white" >
+       <div class="w3-container">
+      <h3><b>Welcome, {{basicDetails.name}}</b></h3>
+      </div>
+	   <div class="w3-container">
+      <p>You have not posted anything<br>To create a post <a class="page-link col-2" href="/createNewPost">Click Here</a></p>
+      
+    </div>
+
+
+  </div>
+</div>
+</template>
+
+<!-- Introduction menu -->
+<div class="w3-col l4">
+  <!-- About Card -->
+  <div class="w3-card-2 w3-margin w3-margin-top">
+ 
+  <img (click)="openCustom(content)" src="{{profilePics?profilePics:defaultAvatar}}" style="width:100%;" alt="no profile pics available">
+    <div class="w3-container w3-white">
+      <h4><b>{{basicDetails.name}}</b></h4>
+	  <p>{{basicDetails.city}}, {{basicDetails.state}}</p>
+      <p>{{basicDetails.aboutYou}}</p>
+    </div>
+  </div><hr>
+  
+  <!-- Posts -->
+  <div class="w3-card-2 w3-margin">
+    <div class="w3-container w3-padding">
+      <h4>Popular Posts</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+      <li class="w3-padding-16 popularPosts" *ngFor="let post of allPosts| orderBy:'like': true" (click)="gotoPost(post.userId,post.postId)">
+        <img src="{{post.postImg?post.postImg:'src/app/img/screenshot.PNG'}}" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+        <span class="w3-large">{{post.postTopic}}</span><br>
+        <span>{{post.postHeading}}</span>
+      </li>
+    </ul>
+  </div>
+  <hr> 
+ 
+  <!-- Labels / tags -->
+  <div class="w3-card-2 w3-margin">
+    <div class="w3-container w3-padding">
+      <h4>Tags</h4>
+    </div>
+    <div class="w3-container w3-white">
+    <p><span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">London</span>
+      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">IKEA</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">NORWAY</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">DIY</span>
+      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Baby</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Family</span>
+      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">News</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Clothing</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Shopping</span>
+      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Sports</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Games</span>
+    </p>
+    </div>
+  </div>
+  
+<!-- END Introduction Menu -->
+</div>
+
+<!-- END GRID -->
+</div>
+
+
+<!-- upload Photo -->
+
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Profile Picture</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body row">
+  <div class="col"><img src="{{profilePics?profilePics:defaultAvatar}}" height="200" width="200"></div>
+  <div class="col align-self-center">
+  <div class="row">
+  <div class="custom-file-upload col-6">
+	<input (change)="uploadProfileImage()" type="file" name="file" id="profileImage" class="inputfile" />
+	<label for="profileImage" class="btn btn-primary">Choose</label>
+	</div>
+	<div class="col-6">
+	<button class="btn btn-secondary ">Remove</button>
+	</div>
+	 </div>
+   </div>
+   </div>
+  <div class="modal-footer">
+    
+  </div>
+</template>
+
+<!-- upload Photo -->

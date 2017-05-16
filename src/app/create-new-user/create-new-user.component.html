@@ -1,0 +1,9 @@
+
+
+<form id="signup" name="registerForm" #createUserForm="ngForm" (ngSubmit)="createNewUser(createUserForm.value)">
+		<h1>Start doing cool stuff in seconds.</h1>
+		<input type="email" placeholder="john.doe@email.com" ngModel required="" name="email">
+		<input type="password" placeholder="Choose your password" ngModel required="" name="passWord">
+		<input type="password" placeholder="Confirm password" required="">					
+		<button type="submit">Sign up for free!</button>	
+	</form>

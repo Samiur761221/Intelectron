@@ -1,0 +1,120 @@
+
+
+<nav *ngIf="isLoggedIn" class="navbar fixed-top navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed"
+   data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="col-sm-3 col-8 p-0" href="typescripts:;"><span class="brandLogo"></span><span class="brandHdr">Intelectron</span></a>
+
+  <div class="collapse navbar-collapse pl-5" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+      <li class="nav-item " [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['home']">Home <span class="sr-only"></span></a>
+      </li>
+	  <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['profile']">My profile</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['createNewPost']">Create a Post</a>
+      </li>
+     
+    </ul>
+    <form class="form-inline  autoSearch mr-auto my-2 my-lg-0"> 
+	
+	  <input id="typeahead-format" name="searchOption" class="form-control mr-sm-2" 
+	  [ngbTypeahead]="search"  [resultTemplate]="rt" 
+	  [inputFormatter]="formatter" 
+	  (selectItem)="goToSearchResult($event.item)" 
+	  type="text" placeholder="Search" >
+    </form>
+	 
+      <ul *ngIf="isLoggedIn" class="nav col-12 col-sm-4 navbar-nav float-right d-block">
+        
+        <li class="d-inline-block">
+          <img class="profilePicsNav" 
+          [src]="userId?getProfilePics(userId):'src/app/img/Default-avatar.jpg'"/>
+      </li>
+      <li class="d-inline-block" ngbDropdown>
+        <a href="typesript:;"  ngbDropdownToggle id="profileLogout"><b>{{afService.getUserName(userId)}}</b></a>
+         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileLogout">
+        <button class="dropdown-item" (click)="logout()">Logout</button>
+      </div>
+      
+      </li>
+          
+      </ul>
+   
+  </div>
+</nav>
+	<ng-template #rt let-r="result" let-t="term">
+		<img [src]="getProfilePics(r.userId)" width="50">
+		{{ r.name}}
+	</ng-template>	
+
+<div class="app-content">
+  <router-outlet></router-outlet>
+
+</div>
+<div class="chatContainer" *ngIf="isLoggedIn">
+   <div class="menu">
+      <div class="back" >
+         <i class="fa"  (click)="chatBarCollapsed = !chatBarCollapsed" aria-controls="chatbar" aria-expanded="false" aria-label="Toggle navigation" [class.fa-plus]="chatBarCollapsed" [class.fa-minus]="!chatBarCollapsed"></i> 
+         <img (click)="tabs.select('chatBarTag');chatStarted=true" *ngIf="recieverDetails.avatar" [src]="recieverDetails.avatar" draggable="false"/>
+      </div>
+      <div class="name"  *ngIf="chatStarted">{{recieverDetails.name}}</div>
+      <div class="last"  *ngIf="chatStarted" ></div>
+  <i class="fa fa-circle onlineIcon" (click)="tabs.select('onlineBar');chatStarted=false" aria-hidden="true"><span *ngIf="!chatStarted" class="onlineTag">Online Users</span></i>
+	  
+   </div>
+   <div class="tabContentContainer"  [ngbCollapse]="chatBarCollapsed">
+   <ngb-tabset #tabs="ngbTabset">
+   <ngb-tab  id="onlineBar">
+            
+		 <ng-template ngbTabContent>
+		 <ul class="list-group onlineList">
+		 
+		   <li class="list-group-item onlineUser" (click)="chatRequest(onlineUser.userId)" *ngFor="let onlineUser of onlineUserList">
+			<img class="userImage col-2 p-0" [src]="onlineUser.avatar" alt="Card image cap">
+			<span class="userName col-6 ">{{onlineUser.name}}</span>
+			<span class="mt-4 col-4 p-0"> {{onlineUser.city}}, {{onlineUser.state}}</span>
+		  </li>
+		 
+		</ul>
+		 </ng-template>
+ </ngb-tab>
+   
+         <ngb-tab  id="chatBarTag">
+          
+            <ng-template ngbTabContent>
+               <ol class="chat" id="chatbar" #chatBarContainer>
+               <li *ngFor="let msg of allMsgs">
+                  
+                  <ul class="p-0 col-12">
+                    <li class=" day">{{msg.date==afService.getDatetime().split(" ")[0]?'Today':msg.date}}</li>
+                   <li [class.self]="msgs.userId==userId" [class.other]="msgs.userId!=userId"  *ngFor="let msgs of msg.msgArray">
+                     <div class="avatar"><img [src]="msgs.userId==userId?getProfilePics(userId):recieverDetails.avatar" draggable="false"/></div>
+                     <div class="msg">
+                        <p>{{msgs.message}}</p>
+                        <time>{{msgs.dateTime.split(" ")[1]+" "+msgs.dateTime.split(" ")[2]}}</time>
+                     </div>
+                  </li>
+                  </ul>
+               </li>
+                  <input class="textarea" (keydown)="postMessage($event)"   name="message" type="text" placeholder="Type here!"/>
+                  
+               </ol>
+            </ng-template>
+         </ngb-tab>
+
+      </ngb-tabset>
+	  </div>
+    <audio hidden id="msgAudio" #msgAudio >
+  <source src="msg.mp3" type="audio/mpeg">
+ 
+</audio>
+</div>
+
+<div *ngIf="ajaxStart" class="loaderContainer row"><div class="loaderImg col align-self-center"></div></div>

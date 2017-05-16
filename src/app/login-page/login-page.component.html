@@ -1,0 +1,41 @@
+
+
+<ul id="login-dp" class="dropdown-menu">
+				<li>
+					 <div class="row">
+							<div class="col-md-12">
+								<a class="col-12  pb-3 float-left pl-0 pr-0" href="typescripts:;"><span class="brandLogo"></span><span class="brandHdr">Intelectron</span></a>
+								<span class="col-12 p-0">Login via</span>
+								<div class="social-buttons">
+									<a href="typescripts:;" class="btn btn-fb login loginmodal-submit" (click)="loginWithFb()"><i class="fa fa-facebook"></i> Facebook</a>
+									<a href="typescripts:;" class="btn btn-gplus login loginmodal-submit" (click)="login()"><i class="fa fa-google-plus "></i> Google +</a>
+								</div>
+                                or
+								 <form class="form" role="form" method="post" action="login"
+								 name="loginWithCredetialForm" #loginWithCredetial="ngForm" (ngSubmit)="userLoginWithCredetial(loginWithCredetial.value)" accept-charset="UTF-8" id="login-nav" >
+										<div class="form-group">
+											 <label class="sr-only" for="exampleInputEmail2">Email address</label>
+											 		<input type="email" placeholder="john.doe@email.com" ngModel class="form-control" id="exampleInputEmail2" required="" name="email">
+										</div>
+										<div class="form-group">
+											 <label class="sr-only" for="exampleInputPassword2">Password</label>
+											 <input type="password" placeholder="Enter your password" ngModel required="" name="password" class="form-control" id="exampleInputPassword2">				
+											
+                                             <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+										</div>
+										<div class="form-group">
+											 <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+										</div>
+										<div class="checkbox">
+											 <label>
+											 <input type="checkbox"> keep me logged-in
+											 </label>
+										</div>
+								 </form>
+							</div>
+							<div class="bottom text-center">
+								New here ? <a href="typescripts:;" (click)="registerPage()"><b>Join Us</b></a>
+							</div>
+					 </div>
+				</li>
+			</ul>

@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+.loaderContainer {
+    height: 768px;
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 999999;
+    overflow: hidden;
+    pointer-events: none;
+}
+.loaderImg {
+    background: url('app/img/electron.png');
+	height: 55px;
+    width: 45px;
+    background-repeat: no-repeat;
+    background-size: 55px;
+    background-position: center;
+    border-radius: 50%;
+	animation: mymove 1s infinite;
+}
+
+@-webkit-keyframes mymove {
+    0%   {-webkit-transform: rotate(0deg);}
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+/* Standard syntax */
+@keyframes mymove {
+    0%  {transform: rotate(0deg); }
+    100% {transform: rotate(360deg);}
+}
+.wsPreLine{
+	white-space:pre-line;
+}
+body{
+	background:url('app/img/intelectron.jpg');
+	background-repeat-x:no-repeat;
+}
+#onlineBar,#chatBarTag{display: none;}

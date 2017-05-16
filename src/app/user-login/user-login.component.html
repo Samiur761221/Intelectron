@@ -1,0 +1,6 @@
+<form id="signup" name="loginWithCredetialForm" #loginWithCredetial="ngForm" (ngSubmit)="userLoginWithCredetial(loginWithCredetial.value)">
+		<h1>Start doing cool stuff in seconds.</h1>
+		<input type="email" placeholder="john.doe@email.com" ngModel required="" name="email">
+		<input type="password" placeholder="Choose your password" ngModel required="" name="password">				
+		<button type="submit">Log In</button>	
+	</form>

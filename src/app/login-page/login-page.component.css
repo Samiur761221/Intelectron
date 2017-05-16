@@ -1,0 +1,71 @@
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+	float: right;
+    display: block;
+	top:0;
+	position:relative;
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-gplus{
+    color: #fff;
+    background-color:#DD4B39;
+}
+.btn-gplus:hover{
+    color: #fff;
+    background-color:#ce2611;
+}
+.brandLogo{
+    background-image: url('../img/electron.png');
+	background-repeat:no-repeat;
+    background-size: 100%;
+    float: left;
+    height: 35px;
+    width:35px;
+}
+.brandHdr{
+     float: left;
+    width: 50%;
+    line-height: 35px;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+@media(max-width:768px){
+    #login-dp{
+      /*  background-color: inherit;*/
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}

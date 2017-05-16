@@ -1,0 +1,281 @@
+<div class="w3-row" *ngIf="dataAvailable">
+
+<!-- Blog entries -->
+<div class="w3-col l4">
+  <!-- About Card -->
+  <div class="w3-card-2 w3-margin w3-margin-top">
+ 
+  <img (click)="openCustom(content)" src="{{profilePics?profilePics:defaultAvatar}}" style="width:100%;" alt="no profile pics available">
+    <div class="w3-container w3-white">
+      <h4><b>{{basicDetails.name}}</b></h4>
+	  <p>{{basicDetails.city}}, {{basicDetails.state}}</p>
+      <p>{{basicDetails.aboutYou}}</p>
+    </div>
+  </div>
+  
+  <!-- Posts -->
+
+ 
+  <!-- Labels / tags -->
+ 
+<!-- END Introduction Menu -->
+</div>	
+<div class="w3-col l8 s12" >
+  <!-- Blog entry -->
+  <div  class="w3-card-4 w3-margin w3-white editDetail" >
+   <div class="container basicDetailsContainer" >
+
+
+    <form class="well form-horizontal"  name="basicDetailsForm" #basicDetailsEdit="ngForm" (ngSubmit)="basicDetailsSubmit(basicDetailsEdit.value)">
+<fieldset>
+
+<!-- Form Name -->
+<legend class="text-center">Basic Details!</legend>
+
+<div class="form-group row" *ngIf="!editable">
+  <label class="col-sm-9 col-xs-12 col-form-label"></label>
+  <div class="col-sm-3 col-xs-12">
+    <button (click)="editForm()" type="button" class="btn btn-primary col-sm-12 col-xs-12" >Edit <span class="fa fa-pencil-square-o 2x float-right"></span></button>
+  </div>
+</div>
+<div class="form-group row" *ngIf="editable">
+  <label class="col-sm-9 col-xs-12 col-form-label"></label>
+  <div class="col-sm-3 col-xs-12">
+    <button type="submit" class="btn btn-primary col-sm-12 col-xs-12" >Save <span class="fa fa-paper-plane 2x"></span></button>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-sm-3 col-xs-12 col-form-label"> Name </label>  
+  <div class="col-sm-9 col-xs-12 input-group">
+  <div class="input-group">
+  <span *ngIf="editable" class="input-group-addon"><i class="fa fa-user-o 2x"></i></span>
+  <input  name="name" placeholder="First Name" [disabled]="!editable" class="form-control" [ngModel]="basicDetails.name" type="text">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group row">
+  <label class="col-sm-3 col-xs-12 col-form-label"> DOB</label>  
+  <div class="col-sm-9 col-xs-12 input-group">
+  <div class="input-group">
+  <span *ngIf="editable" class="input-group-addon" (click)="d.toggle()"><i class="fa fa-calendar 2x"></i></span>
+  <input  name="dob" [disabled]="!editable"  ngbDatepicker #d="ngbDatepicker" placeholder="dd-mm-yyyy" class="form-control" [ngModel]="basicDetails.dob"  type="text">
+    </div>
+  </div>
+  
+</div>
+
+<div class="form-group row"> 
+  <label class="col-sm-3 col-xs-12 col-form-label">Gender</label>
+    <div class="col-sm-9 col-xs-12 selectContainer">
+    <div class="input-group">
+        <span *ngIf="editable" class="input-group-addon"><i class="fa fa-venus-mars 2x"></i></span>
+    <select name="gender"  [disabled]="!editable" class="form-control selectpicker" [ngModel]="basicDetails.gender">
+      <option value="" >Select</option>
+      <option value="Female">Female</option>
+      <option value="Male">Male</option>
+      <option value="Others">Others</option>    
+    </select>
+  </div>
+</div>
+</div>
+
+<!-- Text input-->
+       <div class="form-group row">
+  <label class="col-sm-3 col-xs-12 col-form-label">E-Mail</label>  
+    <div class="col-sm-9 col-xs-12 input-group">
+    <div class="input-group">
+        <span *ngIf="editable" class="input-group-addon"><i class="fa fa-envelope 2x"></i></span>
+  <input name="emailId" [disabled]="!editable" placeholder="E-Mail Address" class="form-control"  type="email" [ngModel]="basicDetails.emailId">
+    </div>
+  </div>
+</div>
+
+
+<!-- Text input-->
+       
+<div class="form-group row">
+  <label class="col-sm-3 col-xs-12 col-form-label">Phone #</label>  
+    <div class="col-sm-9 col-xs-12 input-group">
+    <div class="input-group">
+        <span *ngIf="editable" class="input-group-addon"><i class="fa fa-phone 2x"></i></span>
+  <input name="phoneNo" [disabled]="!editable" placeholder="(845)555-1212" class="form-control" type="text" [ngModel]="basicDetails.phoneNo">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+      
+<div class="form-group row">
+  <label class="col-sm-3 col-xs-12 col-form-label">Address</label>  
+    <div class="col-sm-9 col-xs-12 input-group">
+    <div class="input-group">
+        <span *ngIf="editable" class="input-group-addon"><i class="fa fa-address-card 2x"></i></span>
+  <input name="address" [disabled]="!editable" placeholder="Address" class="form-control" type="text" [ngModel]="basicDetails.address">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+ 
+<div class="form-group row">
+  <label class="col-sm-3 col-xs-12 col-form-label">City</label>  
+    <div class="col-sm-9 col-xs-12 input-group">
+    <div class="input-group">
+        <span *ngIf="editable" class="input-group-addon"><i class="fa fa-address-card 2x"></i></span>
+  <input name="city" [disabled]="!editable" placeholder="city" class="form-control"  type="text" [ngModel]="basicDetails.city">
+    </div>
+  </div>
+</div>
+
+<!-- Select Basic -->
+   
+<div class="form-group row"> 
+  <label class="col-sm-3 col-xs-12 col-form-label">State</label>
+    <div class="col-sm-9 col-xs-12 selectContainer">
+    <div class="input-group">
+        <span *ngIf="editable" class="input-group-addon"><i class="fa fa-list 2x"></i></span>
+    <select [disabled]="!editable" name="state" class="form-control selectpicker" [ngModel]="basicDetails.state">
+      <option value="" >Please select your state</option>
+      <option value="Andhra Pradesh" >Andhra Pradesh</option>
+      <option value="Arunachal Pradesh" >Arunachal Pradesh</option>
+      <option value="Assam" >Assam</option>
+      <option value="Bihar" >Bihar</option>
+      <option value="Chhattisgarh" >Chhattisgarh</option>
+      <option value="Goa" >Goa</option>
+      <option value="Gujarat" >Gujarat</option>
+      <option value="Haryana" >Haryana</option>
+      <option value="Himachal Pradesh" >Himachal Pradesh</option>
+      <option value="Jammu and Kashmir" > Jammu and Kashmir</option>
+      <option value="Jharkhand" >Jharkhand</option>
+      <option value="Karnataka" >Karnataka</option>
+      <option value="Kerala" >Kerala</option>
+      <option value="Madhya Pradesh" >Madhya Pradesh</option>
+      <option value="Maharashtra" >Maharashtra</option>
+      <option value="Manipur" >Manipur</option>
+      <option value="Meghalaya" > Meghalaya</option>
+      <option value="Mizoram" >Mizoram</option>
+      <option value="Nagaland" >Nagaland</option>
+      <option value="Odisha" >Odisha</option>
+      <option value="Punjab" >Punjab</option>
+      <option value="Rajasthan" > Rajasthan</option>
+      <option value="Sikkim" >Sikkim</option>
+      <option value="Tamil Nadu" >Tamil Nadu</option>
+      <option value="Telangana" >Telangana</option>
+      <option value="Tripura" >Tripura</option>
+      <option value="Uttar Pradesh" >Uttar Pradesh</option>
+      <option value="Uttarakhand" >Uttarakhand</option>
+      <option value="West Bengal" >West Bengal</option>
+      <option [disabled]="editForm">--------UT--------</option>
+      <option value="Andaman and Nicobar Islands" >Andaman and Nicobar Islands</option>
+      <option value="Chandigarh" >Chandigarh</option>
+      <option value="Dadra and Nagar Haveli" >Dadra and Nagar Haveli</option>
+      <option value="Daman and Diu" >Daman and Diu</option>
+      <option value="Delhi" >Delhi</option>
+      <option value="Lakshadweep" >Lakshadweep</option>
+      <option value="Puducherry" >Puducherry</option>
+     
+    </select>
+  </div>
+</div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group row">
+  <label class="col-sm-3 col-xs-12 col-form-label">Zip Code</label>  
+    <div class="col-sm-9 col-xs-12 input-group">
+    <div class="input-group">
+        <span *ngIf="editable" class="input-group-addon"><i class="fa fa-map-marker 2x"></i></span>
+  <input name="zipCode" [disabled]="!editable" placeholder="Zip Code" class="form-control"  type="text" [ngModel]="basicDetails.zipCode">
+    </div>
+</div>
+</div>
+
+<!-- Text input-->
+ <div class="form-group row">
+<label class="col-sm-3 col-xs-12 col-form-label">About You</label> 
+ <div class="col-sm-9 col-xs-12 input-group">
+    <div class="input-group">
+        <span *ngIf="editable" class="input-group-addon"><i class="fa fa-user-secret 2x"></i></span>
+ <textarea name="aboutYou" [disabled]="!editable" class="form-control" id="exampleTextarea" rows="3" [ngModel]="basicDetails.aboutYou"></textarea>
+    </div>
+</div>
+    
+  </div>
+
+<!-- radio checks -->
+ 
+
+<!-- Text area -->
+  
+
+
+<!-- Success message -->
+
+
+<!-- Button -->
+
+
+</fieldset>
+</form>
+</div>
+   
+
+    
+  </div>
+  <hr>
+
+  <!-- Blog entry -->
+  
+<!-- END BLOG ENTRIES -->
+</div>
+<!--
+<div class="w3-col l8 s12" *ngIf="posts[0].length<=0">
+<div  class="w3-card-4 w3-margin w3-white" *ngFor="let post of posts">
+       <div class="w3-container">
+      <h3><b>Welcome, {{basicDetails.name}}</b></h3>
+      </div>
+
+
+  </div>
+</div>
+-->
+<!-- Introduction menu -->
+
+
+<!-- END GRID -->
+</div>
+
+
+<!-- upload Photo -->
+
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Profile Picture</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body row">
+  <div class="col"><img src="{{profilePics?profilePics:defaultAvatar}}" height="200" width="200"></div>
+  <div class="col align-self-center">
+  <div class="row">
+  <div class="custom-file-upload col-6">
+	<input (change)="uploadProfileImage()" type="file" name="file" id="profileImage" class="inputfile" />
+	<label for="profileImage" class="btn btn-primary">Choose</label>
+	</div>
+	<div class="col-6">
+	<button class="btn btn-secondary ">Remove</button>
+	</div>
+	 </div>
+   </div>
+   </div>
+  <div class="modal-footer">
+    
+  </div>
+</template>
+
+<!-- upload Photo -->

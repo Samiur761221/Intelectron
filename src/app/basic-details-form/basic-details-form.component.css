@@ -1,0 +1,26 @@
+#success_message{ display: none;}
+span.input-group-addon {
+    max-width: 35px;
+    color: #ffffff;
+    background-color: #4368da;
+}
+.container {
+    background:#fff;
+  border-radius:5px;
+  border: 1px solid #bdbdbd;
+    box-shadow: 1px 1px 1px #bdbdbd;
+}
+.basicDetailsContainer .col-form-label{
+    color: #0d5a9e;
+    font-weight: bold;
+}
+.basicDetailsContainer legend{
+    font-weight: bold;
+    color: #4368da;
+}
+@media (min-width: 992px){
+	
+.container {
+    width: 600px;
+}
+}
